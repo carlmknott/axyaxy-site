@@ -1,0 +1,251 @@
+/* Axy-Axy's website. The same fonts, colours and shapes as the app.
+   Nothing here is loaded from another company: no trackers, no cookies. */
+
+@font-face {
+  font-family: "Baloo 2";
+  src: url("fonts/Baloo2-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lexend";
+  src: url("fonts/Lexend-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lexend";
+  src: url("fonts/Lexend-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+:root {
+  --ink: #2A1E3B;
+  --ink-muted: #5E5070;
+  --paper: #FFF4DC;
+  --white: #FFFFFF;
+  --tomato: #D2432C;
+  --hill-light: #A8D98A;
+  --hill: #7CC793;
+  --sunshine: #FFE7A3;
+  --gutter: 22px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Lexend", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body.grown-up { background: var(--white); }
+
+a { color: var(--ink); text-underline-offset: 0.3em; }
+a:focus-visible, .button:focus-visible {
+  outline: 3px solid var(--tomato);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.reading { max-width: 680px; }
+
+/* The top bar */
+.bar {
+  display: flex;
+  flex-wrap: wrap; /* on the smallest phones the links drop under the name */
+  align-items: center;
+  gap: 0 10px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.bar .home {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+  text-decoration: none;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+.bar .home img {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 2px solid var(--ink);
+}
+/* The menu: three of the app's small buttons, with their pressed-button shadow.
+   The page you are on is golden, the app's colour for "this one". */
+.bar nav {
+  display: flex;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.bar nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 16px;
+  margin-bottom: 3px; /* room for the shadow */
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 0 3px 0 var(--ink); /* the app's small button: a dark edge below, as if it can be pressed */
+  text-decoration: none;
+}
+.bar nav a[aria-current="page"] { background: var(--sunshine); }
+.bar nav a:active { transform: translateY(3px); box-shadow: none; }
+/* On a phone the three share the width under the name, like the app's row of three. */
+@media (max-width: 559px) {
+  .bar nav { width: 100%; margin-top: 10px; }
+  .bar nav a { flex: 1; padding: 0 6px; }
+}
+
+/* Words */
+h1, h2 {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 0;
+}
+h1 { font-size: clamp(2.3rem, 7vw, 3.6rem); margin: 10px 0 12px; }
+h2 { font-size: 1.35rem; margin: 26px 0 4px; }
+p { margin: 0 0 10px; }
+.muted { color: var(--ink-muted); }
+.lead { font-size: 1.125rem; }
+
+main { flex: 1; padding-bottom: 8px; }
+
+/* Buttons: the app's chunky button and its small one */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 60px;
+  padding: 8px 20px;
+  margin: 18px 0 6px;
+  background: var(--tomato);
+  color: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: 0 5px 0 var(--ink);
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+.button.small {
+  min-height: 50px;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: 16px;
+  box-shadow: 0 3px 0 var(--ink);
+  font-family: "Lexend", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+.button:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--ink); }
+.button.small:active { transform: translateY(3px); box-shadow: none; }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 16px 0 0;
+  list-style: none;
+}
+.chips li {
+  padding: 6px 13px;
+  background: var(--white);
+  border: 2.5px solid var(--ink);
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* The front page */
+.hero { max-width: 560px; }
+.pictures {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pictures img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--ink);
+  border-radius: 22px;
+}
+.hello { max-width: 560px; }
+
+/* Support: the questions */
+.card {
+  background: var(--white);
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+.card h3 {
+  font-family: "Lexend", sans-serif;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  margin: 0 0 4px;
+}
+.card p { margin: 0; font-size: 1rem; }
+
+/* The foot: the app's hills, a buddy, and the mark */
+.foot { position: relative; margin-top: 34px; }
+.foot .hills { display: block; width: 100%; height: 120px; }
+.foot .buddy {
+  position: absolute;
+  left: max(var(--gutter), calc(50% - 508px));
+  bottom: 62px;
+  width: 84px;
+  height: auto;
+}
+.foot .words {
+  position: absolute;
+  right: max(var(--gutter), calc(50% - 508px));
+  bottom: 14px;
+  text-align: right;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.mark { display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
+.mark img { width: 18px; height: 18px; }
+.mark b { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 1.05rem; }
+
+/* Wider screens */
+@media (min-width: 760px) {
+  :root { --gutter: 36px; }
+  .pictures { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .hero .button { max-width: 400px; }
+  .foot .hills { height: 150px; }
+  .foot .buddy { width: 100px; bottom: 78px; }
+}
