@@ -34,7 +34,8 @@
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+/* Up and down only: the pages never slide sideways. */
+html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
 
 body {
   margin: 0;
@@ -81,13 +82,13 @@ a:focus-visible, .button:focus-visible {
   text-decoration: none;
   font-family: "Baloo 2", sans-serif;
   font-weight: 800;
-  font-size: 1.35rem;
+  font-size: 1.6rem;
 }
 .bar .home img {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
-  border: 2px solid var(--ink);
+  width: 54px;
+  height: 54px;
+  border-radius: 13px;
+  border: 2.5px solid var(--ink);
 }
 /* The menu: three of the app's small buttons, with their pressed-button shadow.
    The page you are on is golden, the app's colour for "this one". */
@@ -149,7 +150,7 @@ main { flex: 1; padding-bottom: 8px; }
   box-shadow: 0 5px 0 var(--ink);
   font-family: "Baloo 2", sans-serif;
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 5.4vw, 1.4rem); /* one line, even on the smallest phones */
   text-decoration: none;
 }
 .button.small {
@@ -166,30 +167,53 @@ main { flex: 1; padding-bottom: 8px; }
 .button:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--ink); }
 .button.small:active { transform: translateY(3px); box-shadow: none; }
 
+.devices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+.devices span { display: flex; align-items: center; gap: 6px; }
+.devices .dot { color: #A8957A; }
+.devices svg { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* The promises, as at the foot of Grown-ups: the app's own chip (a capsule with a green tick). */
 .chips {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
   padding: 0;
-  margin: 16px 0 0;
+  margin: 40px 0 0;
   list-style: none;
 }
 .chips li {
-  padding: 6px 13px;
-  background: var(--white);
-  border: 2.5px solid var(--ink);
-  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: #FFFBF0;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
+.chips svg { fill: none; stroke: #3E9B5A; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 
-/* The front page */
-.hero { max-width: 560px; }
+/* The front page. The top has room to breathe: each part sits clear of the next (Carl, 16 Nov). */
+.hero { max-width: 560px; padding-top: 22px; }
+.hero h1 { margin: 0 0 20px; }
+.hero .lead { margin-bottom: 14px; }
+.hero .button { margin: 30px 0 0; }
+.hero .devices { margin-top: 24px; }
 .pictures {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
-  margin: 26px 0 0;
+  margin: 44px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -219,33 +243,133 @@ main { flex: 1; padding-bottom: 8px; }
 }
 .card p { margin: 0; font-size: 1rem; }
 
-/* The foot: the app's hills, a buddy, and the mark */
-.foot { position: relative; margin-top: 34px; }
-.foot .hills { display: block; width: 100%; height: 120px; }
-.foot .buddy {
-  position: absolute;
-  left: max(var(--gutter), calc(50% - 508px));
-  bottom: 62px;
-  width: 84px;
-  height: auto;
+/* The pinned note from the foot of Grown-ups: hand-drawn paper, Axy-Axy's gills, a little crooked. */
+.note {
+  position: relative;
+  max-width: 400px;
+  margin: 48px auto 0; /* room for the gills, which poke up above the paper */
+  padding: 14px 22px 12px;
+  transform: rotate(-2deg);
 }
-.foot .words {
-  position: absolute;
-  right: max(var(--gutter), calc(50% - 508px));
-  bottom: 14px;
-  text-align: right;
-  font-size: 0.875rem;
-  line-height: 1.6;
+.note .paper { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; overflow: visible; }
+.note .gills { position: absolute; top: -22px; width: 32px; height: 52px; overflow: visible; }
+.note .gills.left { left: -18px; }
+.note .gills.right { right: -18px; }
+.note h2 { font-size: 1.375rem; margin: 0 0 6px; }
+.note p { font-size: 0.875rem; color: var(--ink-muted); margin: 0 0 6px; }
+.note .love {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  color: var(--tomato);
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: 1.0625rem;
 }
-.mark { display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
+
+/* The foot, as on Grown-ups: the mark, then four friends standing on the app's hills. */
+.foot { margin-top: 34px; text-align: center; }
+.foot .links { margin: 0 0 6px; font-size: 0.9375rem; }
+.mark { display: flex; align-items: center; justify-content: center; gap: 5px; }
 .mark img { width: 18px; height: 18px; }
-.mark b { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 1.05rem; }
+.mark b { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 1.1rem; }
+.hillside { position: relative; margin-top: 18px; background: linear-gradient(transparent 60px, var(--hill) 60px); }
+.hillside .hills { display: block; width: 100%; height: 120px; }
+.hillside .friends {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  width: min(100%, 420px);
+  padding: 0 16px;
+}
+.hillside .friends img {
+  flex: 1;
+  min-width: 0;
+  height: var(--size);
+  object-fit: contain;
+  transform: translateY(var(--drop)) rotate(var(--tilt)); /* the app's own sizes, tilts and drops */
+}
 
 /* Wider screens */
 @media (min-width: 760px) {
   :root { --gutter: 36px; }
-  .pictures { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .pictures { grid-template-columns: repeat(2, 1fr); gap: 22px; }
   .hero .button { max-width: 400px; }
-  .foot .hills { height: 150px; }
-  .foot .buddy { width: 100px; bottom: 78px; }
+  /* Beside a wide page the heading starts on the left, so its button's notes do too. */
+  .devices { justify-content: flex-start; max-width: 400px; justify-content: center; }
+}
+
+/* A friend hovering in the empty space beside a heading. */
+.flyer { width: 52px; height: 52px; margin-left: 14px; vertical-align: middle; }
+.flyer.small { width: 34px; height: 34px; margin-left: 10px; }
+
+/* Only for people who have not asked their device for less movement. */
+@media (prefers-reduced-motion: no-preference) {
+  .flyer { animation: hover 3.6s ease-in-out infinite alternate; }
+  .flyer.small { animation-duration: 4.4s; }
+}
+@keyframes hover {
+  from { transform: translateY(-5px) rotate(-4deg); }
+  to   { transform: translateY(5px) rotate(4deg); }
+}
+
+/* Each page ends in a different part of Axy-Axy's world, built as the app builds its page endings.
+   Home: the hills and four friends (Grown-ups). Support: the swimming pool (the fonts' licences).
+   Privacy: Starry Space (the app's own Privacy page). */
+.ending { --g: 1; position: relative; overflow: hidden; margin-top: 18px; }
+.ending img, .ending .moon { position: absolute; height: calc(var(--h) * var(--g)); width: auto; }
+/* The wavy edge between lands (the app's LandEdge: a wave every 100 points, 7 up and 7 down).
+   The wave is written here, not kept in a file: as a file it did not show when the pages were
+   opened straight from a folder. */
+.wavy, .space, .pool .light, .pool .deep {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='14' viewBox='0 0 200 14'%3E%3Cpath d='M0 7 Q50 0 100 7 Q150 14 200 7 V14 H0 Z'/%3E%3C/svg%3E") top left / 200px 14px repeat-x, linear-gradient(#000, #000) bottom / 100% calc(100% - 13px) no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='14' viewBox='0 0 200 14'%3E%3Cpath d='M0 7 Q50 0 100 7 Q150 14 200 7 V14 H0 Z'/%3E%3C/svg%3E") top left / 200px 14px repeat-x, linear-gradient(#000, #000) bottom / 100% calc(100% - 13px) no-repeat;
+}
+
+/* Starry Space: the map's night colours, still white stars, Glimmer, a planet, and the Big Moon with Ruby. */
+.space { height: calc(210px * var(--g)); background: linear-gradient(#2E3070, #7A4C8E); }
+.space i { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.8); }
+.space > img, .space .moon { transform: translate(-50%, -50%); }
+.space .moon { aspect-ratio: 140 / 176; }
+.space .moon img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.space .moon .blink { opacity: 0; }
+
+/* The swimming pool: two bands of its water, the ring and Skye on top, three little fish below. */
+.pool { height: calc(160px * var(--g)); }
+.pool .light, .pool .deep { position: absolute; left: 0; right: 0; bottom: 0; }
+.pool .light { top: calc(30px * var(--g)); background: #BFE9F5; }
+.pool .deep { top: calc(60px * var(--g)); background: #7FD3EC; }
+.pool img {
+  top: calc((30px + var(--y)) * var(--g));
+  transform: translate(-50%, -50%) rotate(var(--tilt)) scaleX(var(--flip));
+}
+
+@media (min-width: 760px) { .ending { --g: 1.3; } }
+
+/* Ruby plays peek-a-boo behind the moon, as on the map: she ducks, her antennae show, then her eyes, then boo. */
+@media (prefers-reduced-motion: no-preference) {
+  .space .moon .ruby { animation: peekaboo 15.73s infinite; }
+  .space .moon .blink { animation: peekaboo 15.73s infinite, blink 15.73s infinite; }
+}
+@keyframes peekaboo {
+  0%, 66.1% { transform: translateY(0); animation-timing-function: ease-in; }
+  69%, 77.7% { transform: translateY(35.2%); animation-timing-function: ease-out; }
+  80.6%, 85.9% { transform: translateY(25%); animation-timing-function: ease-out; }
+  88.4%, 94.2% { transform: translateY(14.8%); animation-timing-function: ease-out; }
+  95.9% { transform: translateY(-3.4%); }
+  97.1%, 100% { transform: translateY(0); }
+}
+@keyframes blink {
+  0%, 99.1% { opacity: 0; }
+  99.2%, 100% { opacity: 1; }
+}
+
+/* Four pictures in a row once there is room for them. */
+@media (min-width: 1000px) {
+  .pictures { grid-template-columns: repeat(4, 1fr); gap: 18px; }
 }
